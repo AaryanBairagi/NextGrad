@@ -3,3 +3,6 @@ numpy
 pandas
 scikit-learn
 joblib
+
+
+# pip install -r requirements.txt

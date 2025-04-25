@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graduate Admission Predictor</title>
+  <title>NextGrad : Admission Predictor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -45,11 +45,13 @@
       font-weight: 600;
       color: var(--primary-color);
       margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
     }
 
     .description {
       color: #64748b;
       margin-bottom: 2rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
     }
 
     .form-container {
@@ -70,6 +72,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); 
     }
 
     label {
@@ -148,10 +151,51 @@
       border: 1px solid var(--error-color);
     }
 
-    .chart-container {
+    /* .chart-container {
       margin-top: 2rem;
       height: 300px;
-    }
+    } */
+    
+    .chart-card {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    flex-direction: column; /* Stack elements vertically */
+    padding: 20px;
+    background-color: #1f2937;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center; /* Align chart and text horizontally in the center */
+    align-items: center;
+    flex-direction: column; /* Stack pie chart and text */
+    gap: 20px; /* Add space between chart and success rate text */
+}
+
+.pie-chart {
+    position: relative;
+    margin-bottom: 20px; /* Add space below the pie chart */
+}
+
+.text-container {
+    text-align: center; /* Center the text */
+}
+
+#predictionChart {
+    max-width: 300px; /* Limit the size of the chart */
+    width: 100%;
+    height: auto;
+}
+
+#rateValue {
+    font-size: 1.2rem; /* Increase font size for clarity */
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
 
     @media (max-width: 640px) {
       .form-grid {
@@ -163,7 +207,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>Graduate Admission Predictor</h1>
+      <h1>NextGrad- Admission Predictor</h1>
       <p class="description">Enter your academic details to predict your chance of admission</p>
     </header>
 
@@ -221,9 +265,25 @@
 
       <div class="result-container">
         <div id="result"></div>
-        <div class="chart-container">
+
+        <!-- <div class="chart-container">
           <canvas id="predictionChart"></canvas>
+        </div> -->
+        <div class="chart-card">
+          <div class="chart-container" style="display: flex; align-items: center;">
+            <!-- Pie Chart -->
+            <div class="pie-chart">
+              <canvas id="predictionChart"></canvas>
+            </div>
+            
+            <!-- Success Rate Text -->
+            <div class="text-container" style="margin-left: 20px;">
+              <h3 id="successRate" style="color: white; font-size: 1.2rem;">Admission Chance</h3>
+              <p id="rateValue" style="font-size: 1rem; color: var(--text-color);">0%</p> <!-- Updated dynamically -->
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
