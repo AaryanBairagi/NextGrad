@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graduate Admission Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --error-color: #dc2626;
+      --success-color: #16a34a;
+      --border-color: #e2e8f0;
+      --text-color: #1e293b;
+      --bg-color: #f8fafc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .description {
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+
+    .form-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    label {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    input, select {
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .input-info {
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.375rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .result-container {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    #result {
+      padding: 1rem;
+      border-radius: 0.375rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    #result.show {
+      opacity: 1;
+    }
+
+    #result.loading {
+      background-color: rgba(37, 99, 235, 0.1);
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+
+    #result.success {
+      background-color: rgba(22, 163, 74, 0.1);
+      color: var(--success-color);
+      border: 1px solid var(--success-color);
+    }
+
+    #result.error {
+      background-color: rgba(220, 38, 38, 0.1);
+      color: var(--error-color);
+      border: 1px solid var(--error-color);
+    }
+
+    .chart-container {
+      margin-top: 2rem;
+      height: 300px;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Graduate Admission Predictor</h1>
+      <p class="description">Enter your academic details to predict your chance of admission</p>
+    </header>
+
+    <div class="form-container">
+      <form id="predictionForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="gre">GRE Score</label>
+            <input type="number" id="gre" name="gre" min="260" max="340" required>
+            <span class="input-info">Range: 260-340</span>
+          </div>
+
+          <div class="form-group">
+            <label for="toefl">TOEFL Score</label>
+            <input type="number" id="toefl" name="toefl" min="0" max="120" required>
+            <span class="input-info">Range: 0-120</span>
+          </div>
+
+          <div class="form-group">
+            <label for="university">University Rating</label>
+            <input type="number" id="university" name="university" min="1" max="5" required>
+            <span class="input-info">Range: 1-5</span>
+          </div>
+
+          <div class="form-group">
+            <label for="sop">Statement of Purpose (SOP)</label>
+            <input type="number" id="sop" name="sop" min="1" max="5" step="0.5" required>
+            <span class="input-info">Range: 1-5</span>
+          </div>
+
+          <div class="form-group">
+            <label for="lor">Letter of Recommendation (LOR)</label>
+            <input type="number" id="lor" name="lor" min="1" max="5" step="0.5" required>
+            <span class="input-info">Range: 1-5</span>
+          </div>
+
+          <div class="form-group">
+            <label for="cgpa">CGPA</label>
+            <input type="number" id="cgpa" name="cgpa" min="0" max="10" step="0.01" required>
+            <span class="input-info">Range: 0-10</span>
+          </div>
+
+          <div class="form-group">
+            <label for="research">Research Experience</label>
+            <select id="research" name="research" required>
+              <option value="">Select an option</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" onclick="predict()">Predict Admission Chance</button>
+      </form>
+
+      <div class="result-container">
+        <div id="result"></div>
+        <div class="chart-container">
+          <canvas id="predictionChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
