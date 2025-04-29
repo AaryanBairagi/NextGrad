@@ -1,4 +1,4 @@
-NextGrad 🎓
+NextGrad 🎓 <br>
 Predict your chance of admission with ML | DSBDA Mini Project 2025
 
 🚀 About the Project
