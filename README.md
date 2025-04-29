@@ -1,4 +1,4 @@
-NextGrad 🎓 <br>
+<pre>NextGrad 🎓 <br>
 Predict your chance of admission with ML | DSBDA Mini Project 2025
 
 🚀 About the Project
@@ -19,7 +19,7 @@ This project was developed as part of the Data Science and Business Data Analyti
 *Displays visual graph of the result (Chart.js 📊)
 
 🛠️ Tech Stack
--Frontend: HTML, CSS, JavaScript (Chart.js, Toastify)
+-Frontend: HTML, CSS, JavaScript (Chart.js)
 -Backend: Python (Flask Framework)
 -Machine Learning Model: Random Forest Regressor
 -Libraries: pandas, scikit-learn, numpy, joblib
@@ -37,3 +37,4 @@ Graduate Admission Dataset – Kaggle
 Features include GRE, TOEFL, SOP, LOR, CGPA, University Rating, and Research Experience.
 
 🌟 Thank you for checking out NextGrad!
+</pre>
