@@ -86,5 +86,12 @@ Predict your chances of admission into graduate school using academic and resear
 
 ---
 
+## 👨‍💻 Author
+
+**Aaryan Bairagi**  
+GitHub: [@AaryanBairagi](https://github.com/AaryanBairagi)  
+
+---
+
 ## 🌟 Thank You for Checking Out **NextGrad!**
 
